@@ -2,7 +2,7 @@ const database = require('../controller/database');
 var fs          = require('fs');
 
 exports.add_user = function (req, res) {
-    var path     = __dirname+'/'+req.body.filename;
+    var path     = './uploads/'+req.body.filename;
     var filename = req.body.filename;
   var fname    = req.body.fname;
   var image    = req.body.file;
@@ -71,3 +71,41 @@ else {
 
 });
 }
+
+
+//login process
+exports.user_login = function (req, res) {
+    var email = req.body.email;
+    var password = req.body.password;
+    
+    //email verification starts
+    var query = 'SELECT * FROM users_sample WHERE email ="' + email + '"';
+    database.query(query, function (err, result) {
+        if (err) throw err;
+        var demail=result[0].email;
+        var dpassword=result[0].password;
+        console.log('database',demail);
+        console.log('database',dpassword);
+        console.log('user',email);
+        console.log('user',password);
+
+        if(email == demail && password == dpassword){
+            console.log('user login')
+           var message="success";
+        }
+        else{
+            console.log("error");
+            //var message="bad";
+        }
+
+        res.json({
+            msg:message,
+            //data:base64data,
+            fname:email
+         });
+
+    });//email verification ends
+
+    
+
+}//login process ends
