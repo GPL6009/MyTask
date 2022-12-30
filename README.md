@@ -1,4 +1,4 @@
-before copy this file you have to do this in future:
+before copy this file you have to do this:
 installations:
 npm init -y
 npm install express --save
